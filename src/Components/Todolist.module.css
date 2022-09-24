@@ -1,0 +1,22 @@
+.new_tasks {
+    padding: 30px;
+}
+
+.tasks_list {
+    margin: 0 0 15px 30px;
+    padding: 0 0 0 30px;
+    background: rgba(255,255,255, 0.5);
+    width: 300px;
+}
+.checkbox {
+    position: relative;
+    top:1px;
+}
+
+.button {
+    margin:30px;
+}
+
+.button .button_item {
+    margin:5px;
+}
