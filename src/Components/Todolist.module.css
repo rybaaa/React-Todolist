@@ -20,3 +20,15 @@
 .button .button_item {
     margin:5px;
 }
+
+.error {
+    color:red;
+}
+
+.errorinput {
+    border: 1px solid red;
+}
+
+.active_btn {
+    background: deepskyblue;
+}
