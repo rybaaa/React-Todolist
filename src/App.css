@@ -3,4 +3,12 @@
     width: 100vw;
     background-image: url("https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?cs=srgb&dl=pexels-james-wheeler-417074.jpg&fm=jpg");
     display: flex;
+    flex-wrap:wrap;
+}
+.input_title {
+    margin: 30px 0 0 20px;
+}
+
+.input_title h3 {
+
 }

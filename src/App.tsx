@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {TasksType, Todolist} from "./Components/Todolist";
 import {v1} from "uuid";
+import {AddItemForm} from "./Components/AddItemForm";
 
 export type FilterType = 'all' | 'active' | 'completed'
 
@@ -72,12 +73,33 @@ function App() {
     }
 
     const changeTaskStatus = (taskID: string, isDone: boolean, todolistID: string) => {
-        setTasks({...tasks, [todolistID]: tasks[todolistID].map(t => t.id === taskID ? {...t, isDone:isDone}: {...t})})
+        setTasks({
+            ...tasks,
+            [todolistID]: tasks[todolistID].map(t => t.id === taskID ? {...t, isDone: isDone} : {...t})
+        })
     }
 
     const deleteTodolist = (todolistID: string) => {
         setTodolists([...todolists.filter(t => t.id !== todolistID)])
         delete tasks[todolistID]
+    }
+
+    const addItem = (title: string) => {
+        let newTodolist: todolistType = {
+            id: v1(),
+            title,
+            filter: 'all'
+        }
+        setTodolists([newTodolist, ...todolists])
+        setTasks({...tasks, [newTodolist.id]: []})
+    }
+
+    const changeTaskTitle = (taskID: string, title: string, todolistID: string) => {
+        setTasks({...tasks, [todolistID]: tasks[todolistID].map(t => t.id === taskID ? {...t, title} : {...t})})
+    }
+
+    const changeTodolistTitle = (title: string, todolistID: string) => {
+        setTodolists(todolists.map(tdl => tdl.id === todolistID ? {...tdl, title: title} : tdl))
     }
 
     let todolistsItems = todolists.map((tdl) => {
@@ -93,12 +115,19 @@ function App() {
                     addTask={addTask}
                     changeTaskStatus={changeTaskStatus}
                     deleteTodolist={deleteTodolist}
+                    changeTaskTitle={changeTaskTitle}
+                    changeTodolistTitle={changeTodolistTitle}
                 />
             );
         }
     )
     return (
         <div className="App">
+            <div className='input_title'>
+                <h3>Enter new title</h3>
+                <div><AddItemForm addItem={addItem}/></div>
+            </div>
+
             {todolistsItems}
         </div>
     )
