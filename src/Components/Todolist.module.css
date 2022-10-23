@@ -2,6 +2,16 @@
     padding: 30px;
 }
 
+.title {
+    display: flex;
+    gap:10px;
+}
+
+.title_delete {
+    max-height: 20px;
+    margin-top: 23px;
+}
+
 .tasks_list {
     margin: 0 0 15px 30px;
     padding: 0 0 0 30px;

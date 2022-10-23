@@ -5,12 +5,13 @@ import {FilterType} from "../App";
 type appPropsTypes = {
     title: string
     tasks: Array<TasksType>
-    removeTask: (taskId: string, todolistID:string) => void
-    changeFilter: (value: FilterType, todolistID:string) => void
-    addTask: (title: string, todolistID:string) => void
-    changeTaskStatus: (taskID: string, isDone: boolean, todolistID:string) => void
+    removeTask: (taskId: string, todolistID: string) => void
+    changeFilter: (value: FilterType, todolistID: string) => void
+    addTask: (title: string, todolistID: string) => void
+    changeTaskStatus: (taskID: string, isDone: boolean, todolistID: string) => void
     filter: FilterType
-    todolistID:string
+    todolistID: string
+    deleteTodolist:(todolistID:string)=>void
 }
 
 export type TasksType = {
@@ -50,6 +51,10 @@ export const Todolist = (props: appPropsTypes) => {
         setNewTitleName('')
     }
 
+    const deleteTodolist = () => {
+        props.deleteTodolist(props.todolistID)
+    }
+
 
     const Tasklist = () => {
         return (
@@ -62,7 +67,7 @@ export const Todolist = (props: appPropsTypes) => {
                         props.changeTaskStatus(item.id, e.currentTarget.checked, props.todolistID)
                     }
                     return (
-                        <li key={item.id} className={item.isDone? s.isDone : ''}>
+                        <li key={item.id} className={item.isDone ? s.isDone : ''}>
                             <input className={s.checkbox} type='checkbox' checked={item.isDone}
                                    onChange={onChangeTaskHandler}/>
                             <span>{item.title}</span>
@@ -74,11 +79,14 @@ export const Todolist = (props: appPropsTypes) => {
         )
     }
     return (
-        <div className={s.sdfsdf}>
+        <div>
             <div className={s.new_tasks}>
-                <h3>
-                    {props.title}
-                </h3>
+                <div className={s.title}>
+                    <h3>
+                        {props.title}
+                    </h3>
+                    <button onClick={deleteTodolist} className={s.title_delete}>x</button>
+                </div>
                 <div>
                     <input value={newTitleName}
                            onChange={onChangeHandler}
@@ -95,9 +103,12 @@ export const Todolist = (props: appPropsTypes) => {
             <Tasklist/>
             <div>
                 <span className={s.button}>
-                    <button onClick={onClickFilterChange('all')} className={props.filter === 'all'? s.active_btn: s.button_item}>All</button>
-                    <button onClick={onClickFilterChange('active')} className={props.filter === 'active'? s.active_btn: s.button_item}>Active</button>
-                    <button onClick={onClickFilterChange('completed')} className={props.filter === 'completed'? s.active_btn: s.button_item}>Done</button>
+                    <button onClick={onClickFilterChange('all')}
+                            className={props.filter === 'all' ? s.active_btn : s.button_item}>All</button>
+                    <button onClick={onClickFilterChange('active')}
+                            className={props.filter === 'active' ? s.active_btn : s.button_item}>Active</button>
+                    <button onClick={onClickFilterChange('completed')}
+                            className={props.filter === 'completed' ? s.active_btn : s.button_item}>Done</button>
                 </span>
             </div>
         </div>
