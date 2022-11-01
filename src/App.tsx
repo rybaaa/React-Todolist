@@ -3,6 +3,8 @@ import './App.css';
 import {TasksType, Todolist} from "./Components/Todolist";
 import {v1} from "uuid";
 import {AddItemForm} from "./Components/AddItemForm";
+import {AppBar, Button, IconButton, Typography, Toolbar} from "@material-ui/core";
+import {Menu} from "@mui/icons-material";
 
 export type FilterType = 'all' | 'active' | 'completed'
 
@@ -122,13 +124,32 @@ function App() {
         }
     )
     return (
-        <div className="App">
-            <div className='input_title'>
-                <h3>Enter new title</h3>
-                <div><AddItemForm addItem={addItem}/></div>
+        <div>
+            <AppBar position="static">
+                <Toolbar style={{justifyContent: "space-between"}}>
+                    <IconButton edge="start" color="inherit" aria-label="menu">
+                        <Menu/>
+                    </IconButton>
+                    <Typography variant="h4">
+                        Todolists
+                    </Typography>
+                    <Button color="inherit" variant={"outlined"}>Login</Button>
+                </Toolbar>
+            </AppBar>
+            <div className='App'>
+                <div style={{paddingRight:'20px'}}>
+                    <Typography
+                        style={{marginTop: '33px', fontWeight: 'bold'}}
+                        align={"center"}
+                        variant={"h6"}
+                    >Enter new title</Typography>
+                    <div>
+                        <AddItemForm addItem={addItem}/>
+                    </div>
+                </div>
+                {todolistsItems}
             </div>
 
-            {todolistsItems}
         </div>
     )
 

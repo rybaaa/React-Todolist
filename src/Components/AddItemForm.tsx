@@ -1,11 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import s from "./Todolist.module.css";
+import {Button, IconButton, TextField} from "@material-ui/core";
+import {Add} from "@mui/icons-material";
 
 type AddItemFormType = {
-    addItem: (title:string)=>void
+    addItem: (title: string) => void
 }
 
-export const AddItemForm = (props:AddItemFormType) => {
+export const AddItemForm = (props: AddItemFormType) => {
     const [newTitleName, setNewTitleName] = useState('')
     const [error, setError] = useState<null | string>(null)
 
@@ -33,13 +35,18 @@ export const AddItemForm = (props:AddItemFormType) => {
         setNewTitleName('')
     }
     return (
-        <div className={s.input}>
-            <input value={newTitleName}
-                   onChange={onChangeHandler}
-                   onKeyDown={onEnterDownHandler}
-                   className={error ? s.errorinput : ''}
+        <div>
+            <TextField
+                style={{border: error ? '1px solid red' : '', marginLeft:'20px'}}
+                label={'Title'}
+                variant={'outlined'}
+                value={newTitleName}
+                onChange={onChangeHandler}
+                onKeyDown={onEnterDownHandler}
+                size={'small'}
+
             />
-            <button onClick={addItem}>+</button>
+            <IconButton onClick={addItem}><Add/></IconButton>
             <div className={s.error}>
                 {error}
             </div>
