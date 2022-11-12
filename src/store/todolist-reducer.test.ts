@@ -1,10 +1,10 @@
 import {v1} from "uuid";
 import {FilterType, todolistType} from "../App";
 import {
-    AddTodolistAC,
-    ChangeTodolistFilterAC,
-    ChangeTodolistTitleAC,
-    RemoveTodolistAC,
+    addTodolistAC,
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    removeTodolistAC,
     todolistReducer
 } from "./todolist-reducer";
 
@@ -18,7 +18,7 @@ test('correct todolist should be removed', () => {
         {id: todolistId2, title: "What to learn", filter: "all"}
     ]
     //
-    const endState = todolistReducer(startState, RemoveTodolistAC(todolistId1))
+    const endState = todolistReducer(startState, removeTodolistAC(todolistId1))
     //
     expect(endState.length).toBe(1);
     expect(endState[0].id).toBe(todolistId2);
@@ -36,7 +36,7 @@ test('todolist title should be changed', () => {
         {id: todolistId2, title: "What to learn", filter: "all"}
     ]
     //
-    const endState = todolistReducer(startState, ChangeTodolistTitleAC(todolistId2, newTodolistTitle))
+    const endState = todolistReducer(startState, changeTodolistTitleAC(todolistId2, newTodolistTitle))
     //
     expect(endState[1].title).toBe(newTodolistTitle);
     expect(endState[0].title).toBe('What to do');
@@ -54,7 +54,7 @@ test('todolists title should be filtered', () => {
         {id: todolistId2, title: "What to learn", filter: "all"}
     ]
     //
-    const endState = todolistReducer(startState, ChangeTodolistFilterAC(todolistId1, newTodolistFilter))
+    const endState = todolistReducer(startState, changeTodolistFilterAC(todolistId1, newTodolistFilter))
     //
     expect(endState[0].filter).toBe(newTodolistFilter);
     expect(endState[1].filter).toBe('all');
@@ -72,7 +72,7 @@ test('new todolist should be added', () => {
         {id: todolistId2, title: "What to learn", filter: "all"}
     ]
     //
-    const endState = todolistReducer(startState, AddTodolistAC(newTodolistTitle))
+    const endState = todolistReducer(startState, addTodolistAC(newTodolistTitle))
     //
     expect(endState[2].title).toBe(newTodolistTitle);
     expect(endState.length).toBe(3);
