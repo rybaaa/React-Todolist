@@ -5,19 +5,19 @@ import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, Checkbox, IconButton, List, ListItem, Typography} from "@material-ui/core";
 import {DeleteRounded} from "@mui/icons-material";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStoreType} from "../store/store";
+import {
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    removeTodolistAC
+} from "../store/todolist-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../store/task-reducer";
 
 type appPropsTypes = {
     title: string
-    tasks: Array<TasksType>
-    removeTask: (taskId: string, todolistID: string) => void
-    changeFilter: (value: FilterType, todolistID: string) => void
-    addTask: (title: string, todolistID: string) => void
-    changeTaskStatus: (taskID: string, isDone: boolean, todolistID: string) => void
     filter: FilterType
     todolistID: string
-    deleteTodolist: (todolistID: string) => void
-    changeTaskTitle: (taskID: string, title: string, todolistID: string) => void
-    changeTodolistTitle: (title: string, todolistID: string) => void
 }
 
 export type TasksType = {
@@ -27,34 +27,47 @@ export type TasksType = {
 }
 
 export const Todolist = (props: appPropsTypes) => {
+    const tasks = useSelector<AppStoreType, TasksType[]>(state => state.tasks[props.todolistID])
+    const dispatch = useDispatch()
 
-    const onClickFilterChange = (filter: FilterType) => () => props.changeFilter(filter, props.todolistID)
+
+    const onClickFilterChange = (filter: FilterType) => () => dispatch(changeTodolistFilterAC(props.todolistID, filter))
 
     const deleteTodolist = () => {
-        props.deleteTodolist(props.todolistID)
+        dispatch(removeTodolistAC(props.todolistID))
     }
 
     const addTask = (title: string) => {
-        props.addTask(title, props.todolistID)
+        dispatch(addTaskAC(props.todolistID, title))
     }
 
 
     const Tasklist = () => {
+
+        let filteredTasks = tasks
+        if (props.filter === 'active') {
+            filteredTasks = tasks.filter(el => !el.isDone)
+        }
+        if (props.filter === 'completed') {
+            filteredTasks = tasks.filter(el => el.isDone)
+        }
+
         return (
             <List>
-                {props.tasks.map((item) => {
+                {filteredTasks.map((item) => {
                     const removeTask = () => {
-                        props.removeTask(item.id, props.todolistID)
+                        dispatch(removeTaskAC(item.id, props.todolistID))
                     }
                     const onChangeTaskHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        props.changeTaskStatus(item.id, e.currentTarget.checked, props.todolistID)
+                        dispatch(changeTaskStatusAC(props.todolistID, item.id, e.currentTarget.checked))
                     }
                     const onChangeTaskTitle = (newTitle: string) => {
-                        props.changeTaskTitle(item.id, newTitle, props.todolistID)
+                        dispatch(changeTaskTitleAC(props.todolistID, item.id, newTitle))
                     }
 
                     return (
-                        <ListItem key={item.id} style={{opacity: item.isDone ? 0.5 : 1, justifyContent:'space-between'}}>
+                        <ListItem key={item.id}
+                                  style={{opacity: item.isDone ? 0.5 : 1, justifyContent: 'space-between'}}>
                             <Checkbox
                                 size={'small'}
                                 color={'primary'}
@@ -69,11 +82,11 @@ export const Todolist = (props: appPropsTypes) => {
         )
     }
     const onChangeTodolistTitle = (newTitle: string) => {
-        props.changeTodolistTitle(newTitle, props.todolistID)
+        dispatch(changeTodolistTitleAC(props.todolistID, newTitle))
     }
     return (
         <div>
-            <div style={{width:'300px'}}>
+            <div style={{width: '300px'}}>
                 <Typography
                     style={{marginTop: '20px', fontWeight: 'bold'}}
                     align={"center"}
@@ -93,22 +106,21 @@ export const Todolist = (props: appPropsTypes) => {
                             color={props.filter === 'all' ? 'secondary' : 'primary'}
                             size={'small'}
                             style={{marginRight: '3px'}}
-                            >All</Button>
+                    >All</Button>
                     <Button onClick={onClickFilterChange('active')}
                             variant={'contained'}
                             color={props.filter === 'active' ? 'secondary' : 'primary'}
                             size={'small'}
                             style={{marginRight: '3px'}}
-                            >Active</Button>
+                    >Active</Button>
                     <Button onClick={onClickFilterChange('completed')}
                             variant={'contained'}
                             color={props.filter === 'completed' ? 'secondary' : 'primary'}
                             size={'small'}
                             style={{marginRight: '3px'}}
-                            >Done</Button>
+                    >Done</Button>
                 </span>
             </div>
         </div>
-
     )
 }
