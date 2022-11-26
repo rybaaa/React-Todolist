@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import s from "./Todolist.module.css";
 import {Button, IconButton, TextField} from "@material-ui/core";
 import {Add} from "@mui/icons-material";
@@ -7,7 +7,8 @@ type AddItemFormType = {
     addItem: (title: string) => void
 }
 
-export const AddItemForm = (props: AddItemFormType) => {
+export const AddItemForm = React.memo((props: AddItemFormType) => {
+    console.log('additemfrom')
     const [newTitleName, setNewTitleName] = useState('')
     const [error, setError] = useState<null | string>(null)
 
@@ -52,5 +53,5 @@ export const AddItemForm = (props: AddItemFormType) => {
             </div>
         </div>
     );
-};
+});
 

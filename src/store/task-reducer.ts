@@ -15,29 +15,8 @@ type ActionType =
     | AddTodolistType
     | RemoveTodolistType
 
-let initialState:tasksForTodolistType = {
-    [todolistID1]: [
-        {id: v1(), title: 'Go to job', isDone: false},
-        {id: v1(), title: 'Do tasks for my dev courses', isDone: false},
-        {id: v1(), title: 'Go for shopping', isDone: true},
-        {id: v1(), title: 'Pay bills', isDone: true},
-        {id: v1(), title: 'Do my teeth', isDone: false},
-        {id: v1(), title: 'Repair some stuff at home', isDone: false},
-        {id: v1(), title: 'Save some money to the future', isDone: false},
-        {id: v1(), title: 'Visit parents', isDone: false},
-        {id: v1(), title: 'Meet with friends', isDone: false},
-        {id: v1(), title: 'Buy some stuff for the computer', isDone: false}
-    ],
-    [todolistID2]: [
-        {id: v1(), title: 'HTML', isDone: false},
-        {id: v1(), title: 'CSS', isDone: false},
-        {id: v1(), title: 'React', isDone: true},
-        {id: v1(), title: 'Angular', isDone: true},
-        {id: v1(), title: 'Vue', isDone: false},
-        {id: v1(), title: 'NodeJS', isDone: false},
-        {id: v1(), title: 'Redux', isDone: false}
-    ]
-}
+let initialState:tasksForTodolistType = {}
+
 
 
 export const taskReducer = (state = initialState, action: ActionType): tasksForTodolistType => {

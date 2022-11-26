@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useCallback} from "react";
 import s from './Todolist.module.css'
 import {FilterType} from "../App";
 import {AddItemForm} from "./AddItemForm";
@@ -13,6 +13,7 @@ import {
     removeTodolistAC
 } from "../store/todolist-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../store/task-reducer";
+import {Task} from "./Task";
 
 type appPropsTypes = {
     title: string
@@ -26,24 +27,24 @@ export type TasksType = {
     isDone: boolean
 }
 
-export const Todolist = (props: appPropsTypes) => {
+export const Todolist = React.memo((props: appPropsTypes) => {
+    console.log('todolist')
     const tasks = useSelector<AppStoreType, TasksType[]>(state => state.tasks[props.todolistID])
     const dispatch = useDispatch()
 
 
     const onClickFilterChange = (filter: FilterType) => () => dispatch(changeTodolistFilterAC(props.todolistID, filter))
 
-    const deleteTodolist = () => {
+    const deleteTodolist = useCallback(() => {
         dispatch(removeTodolistAC(props.todolistID))
-    }
+    }, [dispatch, props.todolistID])
 
-    const addTask = (title: string) => {
+    const addTask = useCallback((title: string) => {
         dispatch(addTaskAC(props.todolistID, title))
-    }
+    }, [dispatch, props.todolistID])
 
 
     const Tasklist = () => {
-
         let filteredTasks = tasks
         if (props.filter === 'active') {
             filteredTasks = tasks.filter(el => !el.isDone)
@@ -54,36 +55,14 @@ export const Todolist = (props: appPropsTypes) => {
 
         return (
             <List>
-                {filteredTasks.map((item) => {
-                    const removeTask = () => {
-                        dispatch(removeTaskAC(item.id, props.todolistID))
-                    }
-                    const onChangeTaskHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        dispatch(changeTaskStatusAC(props.todolistID, item.id, e.currentTarget.checked))
-                    }
-                    const onChangeTaskTitle = (newTitle: string) => {
-                        dispatch(changeTaskTitleAC(props.todolistID, item.id, newTitle))
-                    }
-
-                    return (
-                        <ListItem key={item.id}
-                                  style={{opacity: item.isDone ? 0.5 : 1, justifyContent: 'space-between'}}>
-                            <Checkbox
-                                size={'small'}
-                                color={'primary'}
-                                checked={item.isDone}
-                                onChange={onChangeTaskHandler}/>
-                            <EditableSpan title={item.title} editMode={true} onChangeTitle={onChangeTaskTitle}/>
-                            <IconButton onClick={removeTask}><DeleteRounded/></IconButton>
-                        </ListItem>
-                    )
-                })}
+                {filteredTasks.map((item) => <Task key={item.id} item={item} todolistID={props.todolistID}/>
+                )}
             </List>
         )
     }
-    const onChangeTodolistTitle = (newTitle: string) => {
+    const onChangeTodolistTitle = useCallback((newTitle: string) => {
         dispatch(changeTodolistTitleAC(props.todolistID, newTitle))
-    }
+    }, [dispatch, props.todolistID])
     return (
         <div>
             <div style={{width: '300px'}}>
@@ -123,4 +102,4 @@ export const Todolist = (props: appPropsTypes) => {
             </div>
         </div>
     )
-}
+})
