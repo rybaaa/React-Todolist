@@ -1,9 +1,9 @@
-import React, {ChangeEvent, useCallback} from "react";
+import React, {useCallback} from "react";
 import s from './Todolist.module.css'
 import {FilterType} from "../App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
-import {Button, Checkbox, IconButton, List, ListItem, Typography} from "@material-ui/core";
+import {Button,IconButton, List, Typography} from "@material-ui/core";
 import {DeleteRounded} from "@mui/icons-material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../store/store";
@@ -12,10 +12,10 @@ import {
     changeTodolistTitleAC,
     removeTodolistAC
 } from "../store/todolist-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../store/task-reducer";
+import {addTaskAC} from "../store/task-reducer";
 import {Task} from "./Task";
 
-type appPropsTypes = {
+type todolistPropsTypes = {
     title: string
     filter: FilterType
     todolistID: string
@@ -27,8 +27,7 @@ export type TasksType = {
     isDone: boolean
 }
 
-export const Todolist = React.memo((props: appPropsTypes) => {
-    console.log('todolist')
+export const Todolist = React.memo((props: todolistPropsTypes) => {
     const tasks = useSelector<AppStoreType, TasksType[]>(state => state.tasks[props.todolistID])
     const dispatch = useDispatch()
 
@@ -64,7 +63,7 @@ export const Todolist = React.memo((props: appPropsTypes) => {
         dispatch(changeTodolistTitleAC(props.todolistID, newTitle))
     }, [dispatch, props.todolistID])
     return (
-        <div>
+        <div className={s.todolist}>
             <div style={{width: '300px'}}>
                 <Typography
                     style={{marginTop: '20px', fontWeight: 'bold'}}
@@ -78,8 +77,8 @@ export const Todolist = React.memo((props: appPropsTypes) => {
                 <AddItemForm addItem={addTask}/>
             </div>
             <Tasklist/>
-            <div>
-                <span className={s.button}>
+            <div style={{width: '300px'}}>
+                <span className={s.buttons}>
                     <Button onClick={onClickFilterChange('all')}
                             variant={'contained'}
                             color={props.filter === 'all' ? 'secondary' : 'primary'}

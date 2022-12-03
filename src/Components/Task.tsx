@@ -25,7 +25,7 @@ export const Task = React.memo((props: TaskPropsType) => {
 
     return (
         <ListItem key={props.item.id}
-                  style={{opacity: props.item.isDone ? 0.5 : 1, justifyContent: 'space-between'}}>
+                  style={{opacity: props.item.isDone ? 0.5 : 1, justifyContent: 'space-between', width:'300px', display:'flex', flexWrap:'wrap'}}>
             <Checkbox
                 size={'small'}
                 color={'primary'}

@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {TextField} from "@material-ui/core";
+import s from './Task.module.css'
 
 type EditableSpanPropsType = {
     title: string
@@ -8,7 +9,6 @@ type EditableSpanPropsType = {
 }
 
 export const EditableSpan = React.memo( (props: EditableSpanPropsType) => {
-    console.log('editable span')
     const [isEditMode, setEditMode] = useState(false)
     const [title, setTitle] = useState(props.title)
 
@@ -24,7 +24,7 @@ export const EditableSpan = React.memo( (props: EditableSpanPropsType) => {
     }
     return (
         isEditMode ?
-            <TextField variant={'standard'} size={'small'} value={title} autoFocus onChange={onChangeTitleHandler} onBlur={offEditMode}/>
-            : <span onClick={onEditMode}>{props.title}</span>
+            <TextField rows={4} multiline variant={'standard'} size={'small'} value={title} autoFocus onChange={onChangeTitleHandler} onBlur={offEditMode}/>
+            : <span className={s.task} onClick={onEditMode}>{props.title}</span>
     );
 }) ;

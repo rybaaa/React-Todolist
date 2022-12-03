@@ -23,7 +23,6 @@ export type tasksForTodolistType = {
 
 
 function AppWithRedux() {
-    console.log('app')
     const todolists = useSelector<AppStoreType, Array<todolistType>>(state => state.todolists)
     const dispatch = useDispatch()
 

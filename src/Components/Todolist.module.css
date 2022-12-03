@@ -23,9 +23,16 @@
 /*    top:1px;*/
 /*}*/
 
-/*.button {*/
-/*    margin:30px;*/
-/*}*/
+.buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.todolist {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
 
 /*.button .button_item {*/
 /*    margin:5px;*/
