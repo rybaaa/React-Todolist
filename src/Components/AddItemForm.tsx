@@ -1,10 +1,12 @@
-import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
-import s from "./Todolist.module.css";
-import {Button, IconButton, TextField} from "@material-ui/core";
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import s from "./AddItemForm.module.css";
+import {IconButton, TextField} from "@material-ui/core";
 import {Add} from "@mui/icons-material";
 
 type AddItemFormType = {
     addItem: (title: string) => void
+    disabled?:boolean
+
 }
 
 export const AddItemForm = React.memo((props: AddItemFormType) => {
