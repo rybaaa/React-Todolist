@@ -20,3 +20,6 @@ export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
+// @ts-ignore
+window.store = store
+

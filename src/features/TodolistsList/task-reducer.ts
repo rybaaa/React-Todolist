@@ -78,6 +78,7 @@ enum ResponseStatusCode {
 }
 
 export const addTaskTC = (title: string, todolistId: string) => async (dispatch: Dispatch<ActionsType>) => {
+    debugger
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await todolistsAPI.createTask(todolistId, title)
