@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {TextField} from "@material-ui/core";
-import s from '../features/TodolistsList/Todolist/Task/Task.module.css'
+import s from '../../features/TodolistsList/Todolist/Task/Task.module.css'
 
 type EditableSpanPropsType = {
     value: string

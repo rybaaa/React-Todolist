@@ -1,45 +1,74 @@
-import React, {useCallback} from 'react';
-import './App.css';
-import {TasksType, TodolistsList} from "../features/TodolistsList/TodolistsList";
-import {AddItemForm} from "../Components/AddItemForm";
-import {AppBar, Button, IconButton, Typography, Toolbar} from "@material-ui/core";
-import {Menu} from "@mui/icons-material";
+import React, {useCallback, useEffect} from 'react'
+import './App.css'
 import {
-    addTodolistAC,
-} from "../features/TodolistsList/todolists-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStoreType, useAppSelector} from "./store";
+    AppBar,
+    Button,
+    CircularProgress,
+    Container,
+    IconButton,
+    LinearProgress,
+    Toolbar,
+    Typography
+} from '@material-ui/core'
+import {TodolistsList} from '../features/TodolistsList/TodolistsList'
+import {ErrorSnackbar} from '../Components/ErrorSnackbar/ErrorSnackbar'
+import {useSelector} from 'react-redux'
+import {AppRootStateType, useAppDispatch} from './store'
+import {initializeAppTC, RequestStatusType} from './app-reducer'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {Login} from '../features/Login/Login'
+import {logoutTC} from '../features/Login/auth-reducer'
+import {Menu} from "@mui/icons-material";
 
-export type FilterType = 'all' | 'active' | 'completed'
-
-export type todolistType = {
-    id: string
-    title: string
-    filter: FilterType
+type PropsType = {
+    demo?: boolean
 }
-export type tasksForTodolistType = {
-    [todolistID: string]: TasksType[]
-}
 
 
-function App() {
-    const status = useAppSelector(state => state.app.status)
-    return (
-        <div>
-            <AppBar position="static">
-                <Toolbar style={{justifyContent: "space-between"}}>
-                    <IconButton edge="start" color="inherit" aria-label="menu">
-                        <Menu/>
-                    </IconButton>
-                    <Typography variant="h4">
-                        Todolists
-                    </Typography>
-                    <Button color="inherit" variant={"outlined"}>Login</Button>
-                </Toolbar>
-            </AppBar>
+function App({demo = false}: PropsType) {
+    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
+    const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(initializeAppTC())
+    }, [dispatch])
+
+    const logoutHandler = useCallback(() => {
+        dispatch(logoutTC())
+    }, [dispatch])
+
+    if (!isInitialized) {
+        return <div
+            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress/>
         </div>
+    }
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <ErrorSnackbar/>
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton edge="start" color="inherit" aria-label="menu">
+                            <Menu/>
+                        </IconButton>
+                        <Typography variant="h6">
+                            News
+                        </Typography>
+                        {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
+                    </Toolbar>
+                    {status === 'loading' && <LinearProgress/>}
+                </AppBar>
+                <Container fixed>
+                    <Routes>
+                        <Route path={'/'} element={<TodolistsList demo={demo}/>}/>
+                        <Route path={'/login'} element={<Login/>}/>
+                    </Routes>
+                </Container>
+            </div>
+        </BrowserRouter>
     )
-
 }
-
 export default App;

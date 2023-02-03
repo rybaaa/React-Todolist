@@ -114,4 +114,4 @@ export type TodolistDomainType = TodolistType & {
     entityStatus: RequestStatusType
 }
 
-type ThunkDispatch = Dispatch<ActionsType | SetAppStatusActionType | SetAppErrorActionType>
+export type ThunkDispatch = Dispatch<ActionsType | SetAppStatusActionType | SetAppErrorActionType>

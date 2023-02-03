@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react'
-import {AddItemForm} from '../../../Components/AddItemForm'
-import {EditableSpan} from '../../../Components/EditableSpan'
+import {AddItemForm} from '../../../Components/AddItemForm/AddItemForm'
+import {EditableSpan} from '../../../Components/EditableSpan/EditableSpan'
 import {Task} from './Task/Task'
 import {TaskStatuses, TaskType} from '../../../api/todolist-api'
 import {FilterValuesType, TodolistDomainType} from '../todolists-reducer'

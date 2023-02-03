@@ -2,6 +2,7 @@ import {Dispatch} from 'redux'
 import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from '../../app/app-reducer'
 import {authAPI, LoginParamsType} from '../../api/todolist-api'
 import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils'
+import {AppThunkDispatch} from "../../app/store";
 
 const initialState: InitialStateType = {
     isLoggedIn: false
@@ -38,7 +39,7 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
             handleServerNetworkError(error, dispatch)
         })
 }
-export const logoutTC = () => (dispatch: Dispatch<ActionsType | SetAppStatusActionType | SetAppErrorActionType>) => {
+export const logoutTC = () => (dispatch: AppThunkDispatch) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.logout()
         .then(res => {
