@@ -23,7 +23,7 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     }
     return (
         isEditMode ?
-            <TextField rows={4} multiline variant={'standard'} size={'small'} value={title} autoFocus
+            <TextField rows={1} multiline variant={'standard'} size={'small'} value={title} autoFocus
                        onChange={onChangeTitleHandler} onBlur={offEditMode}/>
             : <span className={s.task} onClick={onEditMode}>{props.value}</span>
     );

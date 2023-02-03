@@ -10,7 +10,6 @@ type AddItemFormType = {
 }
 
 export const AddItemForm = React.memo((props: AddItemFormType) => {
-    console.log('additemfrom')
     const [newTitleName, setNewTitleName] = useState('')
     const [error, setError] = useState<null | string>(null)
 
@@ -38,22 +37,23 @@ export const AddItemForm = React.memo((props: AddItemFormType) => {
         setNewTitleName('')
     }
     return (
-        <div>
-            <TextField
-                style={{border: error ? '1px solid red' : '', marginLeft:'20px'}}
-                label={'Title'}
-                variant={'outlined'}
-                value={newTitleName}
-                onChange={onChangeHandler}
-                onKeyDown={onEnterDownHandler}
-                size={'small'}
+        <div className={s.wrapper}>
+            <div className={s.container}>
+                <TextField
+                    label={'Title'}
+                    variant={'outlined'}
+                    value={newTitleName}
+                    onChange={onChangeHandler}
+                    onKeyDown={onEnterDownHandler}
+                    size={'small'}
 
-            />
-            <IconButton onClick={addItem}><Add/></IconButton>
+                />
+                <IconButton onClick={addItem}><Add/></IconButton>
+            </div>
             <div className={s.error}>
                 {error}
-            </div>
-        </div>
+            </div></div>
+
     );
 });
 

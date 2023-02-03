@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
 import {useAppDispatch} from "../../../app/store";
 import {RequestStatusType} from "../../../app/app-reducer";
+import s from '../Todolist/Todolist.module.css'
 
 type PropsType = {
     id: string
@@ -24,7 +25,7 @@ type PropsType = {
     changeTodolistTitle: (id: string, newTitle: string) => void
     filter: FilterValuesType
     entityStatus: RequestStatusType
-    todolist:TodolistDomainType
+    todolist: TodolistDomainType
 }
 
 export const Todolist = React.memo(function (props: PropsType) {
@@ -59,14 +60,16 @@ export const Todolist = React.memo(function (props: PropsType) {
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    return <div>
-        <h3><EditableSpan value={props.todolist.title} onChangeTitle={changeTodolistTitle}/>
-            <IconButton onClick={removeTodolist} disabled={props.entityStatus==='loading'}>
+    return <div className={s.container}>
+        <div className={s.titleBlock}>
+            <h3><EditableSpan value={props.todolist.title} onChangeTitle={changeTodolistTitle}/>
+            </h3>
+            <IconButton onClick={removeTodolist} disabled={props.entityStatus === 'loading'}>
                 <Delete/>
             </IconButton>
-        </h3>
-        <AddItemForm disabled={props.todolist.entityStatus==='loading'} addItem={addTask}/>
-        <div>
+        </div>
+        <AddItemForm disabled={props.todolist.entityStatus === 'loading'} addItem={addTask}/>
+        <div className={s.taskBlock}>
             {
                 tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.id}
                                                 removeTask={props.removeTask}
@@ -75,7 +78,7 @@ export const Todolist = React.memo(function (props: PropsType) {
                 />)
             }
         </div>
-        <div style={{paddingTop: '10px'}}>
+        <div className={s.task} style={{paddingTop: '10px'}}>
             <Button variant={props.filter === 'all' ? 'outlined' : 'text'}
                     onClick={onAllClickHandler}
                     color={'inherit'}

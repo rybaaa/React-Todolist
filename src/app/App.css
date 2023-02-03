@@ -1,10 +1,7 @@
 .App {
-    min-height: 1080px;
-    height: 100%;
-    width: 100%;
+    min-height: 100vh;
+    min-width: 100vh;
     background: radial-gradient(#e66465, #9198e5);
-    flex-wrap:wrap;
-    display: flex;
 }
 .input_title {
     /*margin: 30px 0 0 20px;*/

@@ -80,7 +80,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo}) => {
                     let allTodolistTasks = tasks[tl.id]
 
                     return <Grid item key={tl.id}>
-                        <Paper style={{padding: '10px'}}>
+                        <Paper style={{padding: '10px', backgroundColor:'lightgrey'}}>
                             <Todolist
                                 todolist={tl}
                                 entityStatus={tl.entityStatus}

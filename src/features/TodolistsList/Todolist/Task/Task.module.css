@@ -1,4 +1,7 @@
-.task {
+.container{
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
+}
+.container_complete{
+    opacity:0.5;
 }

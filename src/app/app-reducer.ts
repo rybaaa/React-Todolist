@@ -41,7 +41,6 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
         } else {
 
         }
-
         dispatch(setAppInitializedAC(true));
     })
 }
