@@ -22,7 +22,6 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
         case 'APP/SET-STATUS':
             return {...state, status: action.status}
         case "APP/SET-ERROR":
-            debugger
             return {...state, error: action.error}
         case 'APP/SET-IS-INITIALIZED':
             return {...state, isInitialized: action.value}

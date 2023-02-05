@@ -32,8 +32,9 @@ export const TodolistsList: React.FC<PropsType> = ({demo}) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (demo || !isLoggedIn) {
-            return;
+        if (!isLoggedIn) {
+            navigate("/login")
+            return
         }
         dispatch(fetchTodolistsTC())
     }, [dispatch,demo,isLoggedIn])
@@ -70,9 +71,6 @@ export const TodolistsList: React.FC<PropsType> = ({demo}) => {
         dispatch(addTodolistTC(title))
     }, [dispatch])
 
-    if (!isLoggedIn) {
-        navigate("/login")
-    }
 
     return <>
         <Grid container style={{padding: '20px'}}>
@@ -84,7 +82,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo}) => {
                     let allTodolistTasks = tasks[tl.id]
 
                     return <Grid item key={tl.id}>
-                        <Paper style={{padding: '10px', backgroundColor:'lightgrey'}}>
+                        <Paper style={{padding: '10px', backgroundColor:'lightgrey', width:'300px'}}>
                             <Todolist
                                 todolist={tl}
                                 entityStatus={tl.entityStatus}

@@ -4,7 +4,6 @@ import { ResponseType } from '../api/todolist-api'
 
 // generic function
 export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: ErrorUtilsDispatchType) => {
-    debugger
     if (data.messages.length) {
         dispatch(setAppErrorAC(data.messages[0]))
     } else {

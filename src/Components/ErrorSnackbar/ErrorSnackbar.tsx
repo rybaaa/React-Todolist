@@ -14,7 +14,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 export function ErrorSnackbar() {
     const error = useSelector<AppRootStateType, string | null>(state => state.app.error);
-    console.log(error)
     const dispatch = useAppDispatch()
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
@@ -23,7 +22,6 @@ export function ErrorSnackbar() {
         }
         dispatch(setAppErrorAC(null));
     }
-
 
     const isOpen = error !== null;
 

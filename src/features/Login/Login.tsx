@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
 import {useFormik} from 'formik'
 import {useSelector} from 'react-redux'
@@ -35,13 +35,14 @@ export const Login = () => {
             dispatch(loginTC(values));
         },
     })
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/')
+        }
+    }, [isLoggedIn])
 
-    if (isLoggedIn) {
-        navigate('/')
-    }
 
-
-    return <Grid container justify="center">
+    return <Grid container justifyContent="center">
         <Grid item xs={4}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
