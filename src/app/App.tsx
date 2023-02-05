@@ -12,7 +12,7 @@ import {ErrorSnackbar} from '../Components/ErrorSnackbar/ErrorSnackbar'
 import {useSelector} from 'react-redux'
 import {AppRootStateType, useAppDispatch} from './store'
 import {initializeAppTC, RequestStatusType} from './app-reducer'
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {HashRouter, Route, Routes} from 'react-router-dom'
 import {Login} from '../features/Login/Login'
 import {logoutTC} from '../features/Login/auth-reducer'
 import {Menu} from "@mui/icons-material";
@@ -46,7 +46,7 @@ function App({demo = false}: PropsType) {
         </div>
     }
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className="App">
                 <ErrorSnackbar/>
                 <AppBar position="fixed" style={{height:'64px'}}>
@@ -70,7 +70,7 @@ function App({demo = false}: PropsType) {
                     </Routes>
                 </Container>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 export default App;
