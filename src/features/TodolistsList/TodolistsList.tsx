@@ -17,6 +17,7 @@ import {Todolist} from './Todolist/Todolist'
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {useNavigate} from "react-router-dom";
+import Typography from "@mui/material/Typography";
 
 type PropsType = {
     demo?: boolean
@@ -73,7 +74,10 @@ export const TodolistsList: React.FC<PropsType> = ({demo}) => {
 
 
     return <>
-        <Grid container style={{padding: '20px'}}>
+        <Grid container component={'div'} style={{padding: '20px', display:'flex', flexDirection:'column', alignItems:'center'}}>
+            <Typography variant="h6" >
+                Enter new Todolist
+            </Typography>
             <AddItemForm addItem={addTodolist}/>
         </Grid>
         <Grid container spacing={3}>

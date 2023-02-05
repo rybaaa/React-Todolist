@@ -1,10 +1,12 @@
 import React, {ChangeEvent, useState} from 'react';
 import {TextField} from "@material-ui/core";
 import s from '../EditableSpan/EditableSpan.module.css'
+import {TaskStatuses} from "../../api/todolist-api";
 
 type EditableSpanPropsType = {
     value: string
     onChangeTitle: (newTitle: string) => void
+    taskStatus?:TaskStatuses
 }
 
 export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
@@ -25,6 +27,6 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
         isEditMode ?
             <TextField rows={1} multiline variant={'standard'} size={'small'} value={title} autoFocus
                        onChange={onChangeTitleHandler} onBlur={offEditMode}/>
-            : <span className={s.task} onClick={onEditMode}>{props.value}</span>
+            : <span className={props.taskStatus===TaskStatuses.Completed? `${s.task} ${s.task_completed}`: `${s.task}`} onClick={onEditMode}>{props.value}</span>
     );
 });

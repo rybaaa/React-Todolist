@@ -1,3 +1,7 @@
 .task{
     text-align: center;
 }
+.task_completed{
+    opacity: 0.5;
+    text-decoration: line-through;
+}

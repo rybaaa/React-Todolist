@@ -5,10 +5,8 @@ import {
     Button,
     CircularProgress,
     Container,
-    IconButton,
     LinearProgress,
     Toolbar,
-    Typography
 } from '@material-ui/core'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 import {ErrorSnackbar} from '../Components/ErrorSnackbar/ErrorSnackbar'
@@ -19,6 +17,8 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import {Login} from '../features/Login/Login'
 import {logoutTC} from '../features/Login/auth-reducer'
 import {Menu} from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
+import Typography from '@mui/material/Typography'
 
 type PropsType = {
     demo?: boolean
@@ -53,7 +53,7 @@ function App({demo = false}: PropsType) {
                         <IconButton edge="start" color="inherit" aria-label="menu">
                             <Menu/>
                         </IconButton>
-                        <Typography variant="h6">
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             News
                         </Typography>
                         {isLoggedIn && <Button style={{border:'1px solid white'}} color="inherit" onClick={logoutHandler}>Log out</Button>}
