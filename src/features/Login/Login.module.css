@@ -1,0 +1,10 @@
+.errorPassword{
+    color: #0108b9;
+    position: absolute;
+    top:140px;
+}
+.errorEmail{
+    color: #0108b9;
+    position: absolute;
+    top:65px;
+}

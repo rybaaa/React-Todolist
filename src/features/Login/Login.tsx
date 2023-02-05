@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux'
 import {loginTC} from './auth-reducer'
 import {AppRootStateType, useAppDispatch} from '../../app/store'
 import {useNavigate} from "react-router-dom";
+import s from'../Login/Login.module.css'
 
 export const Login = () => {
     const dispatch = useAppDispatch()
@@ -24,7 +25,6 @@ export const Login = () => {
                     password: 'Password is required'
                 }
             }
-
         },
         initialValues: {
             email: '',
@@ -41,7 +41,7 @@ export const Login = () => {
         }
     }, [isLoggedIn])
 
-    return <Grid container justifyContent="center" >
+    return <Grid container justifyContent="center">
         <Grid item xs={4}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl style={{marginTop:'100px'}}>
@@ -59,28 +59,29 @@ export const Login = () => {
                             Password: free
                         </p>
                     </FormLabel>
-                    <FormGroup>
+                    <FormGroup style={{position:'relative'}}>
                         <TextField
                             label="Email"
                             margin="normal"
                             {...formik.getFieldProps("email")}
                         />
-                        {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+                        {formik.errors.email ? <div className={s.errorEmail}>{formik.errors.email}</div> : null}
                         <TextField
                             type="password"
                             label="Password"
                             margin="normal"
                             {...formik.getFieldProps("password")}
                         />
-                        {formik.errors.password ? <div>{formik.errors.password}</div> : null}
+                        {formik.errors.password ? <div className={s.errorPassword}>{formik.errors.password}</div> : null}
                         <FormControlLabel
+                            style={{marginTop:'20px'}}
                             label={'Remember me'}
                             control={<Checkbox
                                 {...formik.getFieldProps("rememberMe")}
                                 checked={formik.values.rememberMe}
                             />}
                         />
-                        <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+                        <Button disabled={!!formik.errors.email || !!formik.errors.password} type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
                     </FormGroup>
                 </FormControl>
             </form>
