@@ -5,7 +5,6 @@ import {
     Button,
     CircularProgress,
     Container,
-    LinearProgress,
     Toolbar,
 } from '@material-ui/core'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
@@ -19,6 +18,8 @@ import {logoutTC} from '../features/Login/auth-reducer'
 import {Menu} from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import Typography from '@mui/material/Typography'
+import LinearProgress from "@mui/material/LinearProgress";
+import Box from '@mui/material/Box'
 
 type PropsType = {
     demo?: boolean
@@ -48,7 +49,7 @@ function App({demo = false}: PropsType) {
         <BrowserRouter>
             <div className="App">
                 <ErrorSnackbar/>
-                <AppBar position="static" style={{height:'64px'}}>
+                <AppBar position="fixed" style={{height:'64px'}}>
                     <Toolbar>
                         <IconButton edge="start" color="inherit" aria-label="menu">
                             <Menu/>
@@ -58,7 +59,9 @@ function App({demo = false}: PropsType) {
                         </Typography>
                         {isLoggedIn && <Button style={{border:'1px solid white'}} color="inherit" onClick={logoutHandler}>Log out</Button>}
                     </Toolbar>
-                    {status === 'loading' && <LinearProgress/>}
+                    {status === 'loading' && <Box sx={{ width: '100%' }}>
+                        <LinearProgress />
+                    </Box>}
                 </AppBar>
                 <Container fixed>
                     <Routes>

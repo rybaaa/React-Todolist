@@ -8,6 +8,9 @@ type EditableSpanPropsType = {
     onChangeTitle: (newTitle: string) => void
     taskStatus?:TaskStatuses
 }
+interface KeyboardEvent {
+    key: string;
+}
 
 export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     const [isEditMode, setEditMode] = useState(false)
@@ -20,13 +23,19 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
         setEditMode(false)
         props.onChangeTitle(title)
     }
+    const onEnterHandler = (e: KeyboardEvent)=>{
+        if (e.key==='Enter'){
+            setEditMode(false)
+            props.onChangeTitle(title)
+        }
+    }
     const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
     return (
         isEditMode ?
             <TextField rows={1} multiline variant={'standard'} size={'small'} value={title} autoFocus
-                       onChange={onChangeTitleHandler} onBlur={offEditMode}/>
+                       onChange={onChangeTitleHandler} onBlur={offEditMode} onKeyDown={onEnterHandler}/>
             : <span className={props.taskStatus===TaskStatuses.Completed? `${s.task} ${s.task_completed}`: `${s.task}`} onClick={onEditMode}>{props.value}</span>
     );
 });

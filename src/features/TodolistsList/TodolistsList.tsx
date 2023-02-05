@@ -38,7 +38,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo}) => {
             return
         }
         dispatch(fetchTodolistsTC())
-    }, [dispatch,demo,isLoggedIn])
+    }, [dispatch,demo,isLoggedIn, navigate])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
         dispatch(removeTaskTC(id, todolistId))
@@ -74,17 +74,16 @@ export const TodolistsList: React.FC<PropsType> = ({demo}) => {
 
 
     return <>
-        <Grid container component={'div'} style={{padding: '20px', display:'flex', flexDirection:'column', alignItems:'center'}}>
+        <Grid container component={'div'} style={{paddingTop: '100px', display:'flex', flexDirection:'column', alignItems:'center', width:'100%'}}>
             <Typography variant="h6" >
                 Enter new Todolist
             </Typography>
             <AddItemForm addItem={addTodolist}/>
         </Grid>
-        <Grid container spacing={3}>
+        <Grid container spacing={4} style={{margin:'0'}} >
             {
                 todolists.map(tl => {
                     let allTodolistTasks = tasks[tl.id]
-
                     return <Grid item key={tl.id}>
                         <Paper style={{padding: '10px', backgroundColor:'lightgrey', width:'300px'}}>
                             <Todolist
