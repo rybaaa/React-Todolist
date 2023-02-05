@@ -41,11 +41,10 @@ export const Login = () => {
         }
     }, [isLoggedIn])
 
-
-    return <Grid container justifyContent="center">
+    return <Grid container justifyContent="center" >
         <Grid item xs={4}>
             <form onSubmit={formik.handleSubmit}>
-                <FormControl>
+                <FormControl style={{marginTop:'100px'}}>
                     <FormLabel>
                         <p>
                             To log in get registered <a href={'https://social-network.samuraijs.com/'}
