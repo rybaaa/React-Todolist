@@ -1,6 +1,7 @@
-# React Application with list of tasks you need to complete or things that you want to do
+# Todolist
+React Application with list of tasks you need to complete or things that you want to do
 
-# [Demo](rybaaa.github.io/React-Todolist/)
+# [Demo](https://rybaaa.github.io/React-Todolist/)
 
 ## Stack
 
